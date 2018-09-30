@@ -35,9 +35,7 @@ fun mainMenu(): Boolean{
     return true
 }
 
-fun binaryCalculator() {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-}
+
 
 
 fun numberConversor() {
@@ -316,3 +314,56 @@ fun xor(b1: String?, b2: String?) = and(b1, notInt(b2))
 fun nand(b1: String?,b2: String?) = not(and(b1,b2))
 
 fun nor(b1:String?, b2: String?) = not(or(b1,b2))
+
+
+
+/*** SOmador */
+
+
+fun binaryCalculator() {
+    val somaAula = listOf<Soma>(Soma(decToBin("4").toInt(),decToBin("4").toInt()),
+            Soma(decToBin("5").toInt(),decToBin("1").toInt()),
+            Soma(decToBin("6").toInt(),decToBin("7").toInt()),
+            Soma(decToBin("7").toInt(),decToBin("0").toInt()),
+            Soma(decToBin("0").toInt(),decToBin("0").toInt()),
+            Soma(decToBin("1").toInt(),decToBin("1").toInt()),
+            Soma(decToBin("2").toInt(),decToBin("3").toInt()),
+            Soma(decToBin("3").toInt(),decToBin("0").toInt()),
+            Soma(decToBin("12").toInt(),decToBin("12").toInt()),
+            Soma(decToBin("13").toInt(),decToBin("1").toInt()),
+            Soma(decToBin("14").toInt(),decToBin("15").toInt()),
+            Soma(decToBin("15").toInt(),decToBin("0").toInt()),
+            Soma(decToBin("8").toInt(),decToBin("8").toInt()),
+            Soma(decToBin("9").toInt(),decToBin("1").toInt()),
+            Soma(decToBin("10").toInt(),decToBin("11").toInt()),
+            Soma(decToBin("11").toInt(),decToBin("0").toInt()))
+    var running = true
+    while (running){
+
+        print("Digite a opção desejada:" +
+                "\n1 - Rodar soma estipulada na aula" +
+                "\n2 - Digitar números para somar" +
+                "\n Qualquer outra coisa para sair")
+
+        when(readLine()){
+            "1"-> somaBinaria(somaAula)
+            "2" -> somaBinaria()
+            else -> running = false
+        }
+
+
+    }
+
+}
+
+
+fun somaBinaria(somaAula: List<Soma>? = null) {
+
+    if (somaAula!=null){
+
+    }else{
+
+    }
+}
+
+data class Soma(val numero1: Int, val numero2: Int)
