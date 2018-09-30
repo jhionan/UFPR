@@ -1,15 +1,17 @@
-import java.util.Scanner;
 /**
  * Feito por Jhionan Rian Lara dos Santos - GRR20184624
  * Trabalho para DS011 Introdução à Arquitetura de Computadores - N
  *
  * */
 
+
+
+
+
 fun main(args: Array<String>) {
 
 
 
-    val value = Scanner(System.`in`)
     var running = true
     while (running) {
 
@@ -22,7 +24,7 @@ fun main(args: Array<String>) {
                 "\n6 - Função NÃOOU" +
                 "\n Qualquer outra coisa para encerrar: ")
 
-        val optionIn = value.nextLine()
+        val optionIn = readLine()
 
         var option = 0
         if (optionIn.isNotBlank())
@@ -89,6 +91,8 @@ fun main(args: Array<String>) {
     }
 
 }
+
+
 
 /***FUnçoes*/
 fun and(bit1: Int, bit2: Int) : Boolean{
