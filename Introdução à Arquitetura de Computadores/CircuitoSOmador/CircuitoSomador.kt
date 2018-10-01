@@ -25,8 +25,8 @@ fun mainMenu(): Boolean{
 
 
     when(readLine()) {
-        "1" -> numberConversor()
-        "2" -> logicOperations()
+        "1" -> logicOperations()
+        "2" -> numberConversor()
         "3" -> binaryCalculator()
         else -> return false
 
@@ -223,60 +223,49 @@ fun logicOperations() {
                 "\n6 - Função NÃOOU" +
                 "\n Qualquer outra coisa para encerrar: ")
 
-        val optionIn = readLine()
+        val option = readLine()
 
-        var option = 0
-        if (optionIn?.isNotBlank()==true)
-            try {
-                option = optionIn.toInt()
-                if (option > 9 || option < 0)
-                    running = false
-            } catch (e: Throwable) {
-                running = false
-            }
-
-
-        var result = false
+       var result = ""
         when (option) {
 
-            1 -> {
+            "1" -> {
                 print("Digite o 1 bit: ")
-                var b1 = readLine()
+                val b1 = readLine()
                 print("Digite o 2 bit: ")
-                var b2 = readLine()
+                val b2 = readLine()
                 result = and(b1, b2)
             }
-            2 -> {
+           "2" -> {
                 print("Digite o 1 bit: ")
-                var b1 = readLine()
+                val b1 = readLine()
                 print("Digite o 2 bit: ")
-                var b2 = readLine()
+                val b2 = readLine()
                 result = or(b1, b2)
             }
-            3->{
+            "3"->{
                 print("Digite o 1 bit: ")
-                var b1 = readLine()
+                val b1 = readLine()
                 print("Digite o 2 bit: ")
-                var b2 = readLine()
+                val b2 = readLine()
                 result = xor(b1, b2)
             }
-            4->{
+            "4"->{
                 print("Digite o 1 bit: ")
-                var b1 = readLine()
+                val b1 = readLine()
                 result = not(b1)
             }
-            5->{
+            "5"->{
                 print("Digite o 1 bit: ")
-                var b1 = readLine()
+                val b1 = readLine()
                 print("Digite o 2 bit: ")
-                var b2 = readLine()
+                val b2 = readLine()
                 result = nand(b1, b2)
             }
-            6->{
+            "6"->{
                 print("Digite o 1 bit: ")
-                var b1 = readLine()
+                val b1 = readLine()
                 print("Digite o 2 bit: ")
-                var b2 = readLine()
+                val b2 = readLine()
                 result = nor(b1, b2)
             }
             else-> running = false
@@ -285,31 +274,31 @@ fun logicOperations() {
         if (running)
             print("================\nResultado: $result\n================")
         println()
-        if (running)
-            readLine()
     }
 
 }
 
 /***FUnçoes*/
-fun and(bit1: String?, bit2: String?) : Boolean{
+fun and(bit1: String?, bit2: String?) : String{
 
     return if (bit1=="1"){
-        bit2=="1"
-    }else
-        false
+        if (bit2=="1"){
+            "1"
+        }else
+            "0"
+    } else "0"
+
 }
 
 
-fun or(bit1:String?, bit2: String?) = if (bit1=="1") true else bit2=="1"
+fun or(bit1:String?, bit2: String?) = if (bit1=="1") "1" else bit2?:"0"
 
 
-fun not(b1:String?) = if (b1=="1") false else true
-fun notInt(b1:String?) = if (b1=="1") "0" else "1"
-fun not(b1: Boolean) = !b1
+fun not(b1:String?) = if (b1=="1") "0" else "1"
+//fun not(b1: Boolean) = !b1
 
 
-fun xor(b1: String?, b2: String?) = and(b1, notInt(b2))
+fun xor(b1: String?, b2: String?) = if (b1=="1")and(b1, not(b2)) else (and(b2,not(b1)))
 
 fun nand(b1: String?,b2: String?) = not(and(b1,b2))
 
@@ -321,29 +310,29 @@ fun nor(b1:String?, b2: String?) = not(or(b1,b2))
 
 
 fun binaryCalculator() {
-    val somaAula = listOf<Soma>(Soma(decToBin("4").toInt(),decToBin("4").toInt()),
-            Soma(decToBin("5").toInt(),decToBin("1").toInt()),
-            Soma(decToBin("6").toInt(),decToBin("7").toInt()),
-            Soma(decToBin("7").toInt(),decToBin("0").toInt()),
-            Soma(decToBin("0").toInt(),decToBin("0").toInt()),
-            Soma(decToBin("1").toInt(),decToBin("1").toInt()),
-            Soma(decToBin("2").toInt(),decToBin("3").toInt()),
-            Soma(decToBin("3").toInt(),decToBin("0").toInt()),
-            Soma(decToBin("12").toInt(),decToBin("12").toInt()),
-            Soma(decToBin("13").toInt(),decToBin("1").toInt()),
-            Soma(decToBin("14").toInt(),decToBin("15").toInt()),
-            Soma(decToBin("15").toInt(),decToBin("0").toInt()),
-            Soma(decToBin("8").toInt(),decToBin("8").toInt()),
-            Soma(decToBin("9").toInt(),decToBin("1").toInt()),
-            Soma(decToBin("10").toInt(),decToBin("11").toInt()),
-            Soma(decToBin("11").toInt(),decToBin("0").toInt()))
+    val somaAula = listOf<ParSoma>(ParSoma(decToBin("4"),decToBin("4")),
+            ParSoma(decToBin("5"),decToBin("1")),
+            ParSoma(decToBin("6"),decToBin("7")),
+            ParSoma(decToBin("7"),decToBin("0")),
+            ParSoma(decToBin("0"),decToBin("0")),
+            ParSoma(decToBin("1"),decToBin("1")),
+            ParSoma(decToBin("2"),decToBin("3")),
+            ParSoma(decToBin("3"),decToBin("0")),
+            ParSoma(decToBin("12"),decToBin("12")),
+            ParSoma(decToBin("13"),decToBin("1")),
+            ParSoma(decToBin("14"),decToBin("15")),
+            ParSoma(decToBin("15"),decToBin("0")),
+            ParSoma(decToBin("8"),decToBin("8")),
+            ParSoma(decToBin("9"),decToBin("1")),
+            ParSoma(decToBin("10"),decToBin("11")),
+            ParSoma(decToBin("11"),decToBin("0")))
     var running = true
     while (running){
 
-        print("Digite a opção desejada:" +
+        println("Digite a opção desejada:" +
                 "\n1 - Rodar soma estipulada na aula" +
                 "\n2 - Digitar números para somar" +
-                "\n Qualquer outra coisa para sair")
+                "\n Qualquer outra coisa para sair : ")
 
         when(readLine()){
             "1"-> somaBinaria(somaAula)
@@ -356,14 +345,70 @@ fun binaryCalculator() {
 
 }
 
+fun menuSomaLivre(){
+    println("Digite o primeiro binario da soma: ")
+    var num1 = readLine()
+    println("Digite o segundo binario: ")
+    var num2 = readLine()
+    println("")
 
-fun somaBinaria(somaAula: List<Soma>? = null) {
+    println("==========\nSOMA ${somador(ParSoma(num1,num2)).reversed()}\n==========\nDecimal = ${binToDec(somador(ParSoma(num1,num2)))}")
 
-    if (somaAula!=null){
+
+
+}
+
+
+fun somaBinaria(parSomaAula: List<ParSoma>? = null) {
+
+    if (parSomaAula!=null){
 
     }else{
 
+        menuSomaLivre()
     }
 }
 
-data class Soma(val numero1: Int, val numero2: Int)
+
+fun somador(parSoma: ParSoma): String{
+    var total = ""
+    var num1 = ""
+    var num2 = ""
+    var interator = 0
+    //arruma o tamanho dos numeros para efetuar a operaçao
+
+    if(parSoma.numero1?.length?:0!=parSoma.numero2?.length?:0){
+        if (parSoma.numero1?.length?:0>parSoma.numero2?.length?:0){
+            interator = parSoma.numero1?.length?:0
+            var interator2 = parSoma.numero2?.length?:0
+            for (i in 0 until interator-interator2)
+                num2+="0"
+        }else{
+            interator = parSoma.numero1?.length?:0
+            var interator2 = parSoma.numero2?.length?:0
+            for (i in 0 until interator2-interator)
+                num1+="0"
+        }
+    }
+        interator = parSoma.numero1?.length?:0
+        for (i in 0 until interator){
+            num1 += ""+parSoma.numero1?.get(i)
+            num2 += ""+parSoma.numero2?.get(i)
+        }
+
+
+
+
+
+
+    return total
+}
+
+
+fun somador(soma : Soma): Resultado{
+    return Resultado(and(xor(soma.valor1,soma.valor2),soma.valor3),and(soma.valor1,soma.valor2))
+}
+
+data class Resultado(val resultado: String, val cOut: String)
+data class Soma(var valor1 : String, var valor2: String, var valor3: String)
+data class ParSoma(val numero1: String?, val numero2: String?)
