@@ -351,8 +351,8 @@ fun menuSomaLivre(){
     println("Digite o segundo binario: ")
     var num2 = readLine()
     println("")
-
-    println("==========\nSOMA ${somador(ParSoma(num1,num2)).reversed()}\n==========\nDecimal = ${binToDec(somador(ParSoma(num1,num2)))}")
+    val result = somador(ParSoma(num1,num2)).reversed()
+    println("\n====================\nSOMA ${num1}+${num2}  =  $result\nDecimal = ${binToDec(num1)}+${binToDec(num2)} = ${binToDec(result)}\n====================")
 
 
 
@@ -362,6 +362,10 @@ fun menuSomaLivre(){
 fun somaBinaria(parSomaAula: List<ParSoma>? = null) {
 
     if (parSomaAula!=null){
+        parSomaAula.forEach {
+            val result = somador(ParSoma(it.numero1,it.numero2)).reversed()
+            println("\n====================\nSOMA ${it.numero1}+${it.numero2}  =  $result\nDecimal = ${binToDec(it.numero1)}+${binToDec(it.numero2)} = ${binToDec(result)}\n====================")
+        }
 
     }else{
 
@@ -375,6 +379,7 @@ fun somador(parSoma: ParSoma): String{
     var num1 = ""
     var num2 = ""
     var interator = 0
+    var bits = 0
     //arruma o tamanho dos numeros para efetuar a operaçao
 
     if(parSoma.numero1?.length?:0!=parSoma.numero2?.length?:0){
@@ -391,22 +396,37 @@ fun somador(parSoma: ParSoma): String{
         }
     }
         interator = parSoma.numero1?.length?:0
-        for (i in 0 until interator){
+        for (i in 0 until  interator){
             num1 += ""+parSoma.numero1?.get(i)
-            num2 += ""+parSoma.numero2?.get(i)
         }
+    interator = parSoma.numero2?.length?:0
+    for (i in 0 until  interator){
+        num2 += ""+parSoma.numero2?.get(i)
+    }
+
+    interator = num1.length
+    var cin = "0"
+    for (i in interator-1 downTo  0){
+        val result = somador(Soma(""+num1[i],""+num2[i],cin))
+        total += result.resultado
+        cin = result.cOut
+
+        if (i==0){
+            if (result.cOut=="1")
+            total+=result.cOut
+        }
+        bits++
+    }
 
 
-
-
-
+//println("Bits usados : $bits")
 
     return total
 }
 
 
 fun somador(soma : Soma): Resultado{
-    return Resultado(and(xor(soma.valor1,soma.valor2),soma.valor3),and(soma.valor1,soma.valor2))
+    return Resultado(xor(xor(soma.valor1,soma.valor2),soma.valor3),and(soma.valor1,soma.valor2))
 }
 
 data class Resultado(val resultado: String, val cOut: String)
