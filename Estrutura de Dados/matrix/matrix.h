@@ -1,10 +1,22 @@
-
+#include "../linkedList/linkedList.h"
 #define operationSum = 0;
 #define operationSubstration = 1;
 
+typedef struct
+{
+    char name[20];
+    float **value;
+    int row, column; //dimensão da matriz
+} Matrix;
 
+typedef struct
+{
+    Matrix *matrix;
+    struct MatrixList *next;
+} MatrixList;
 
-float **createMatrix(int row, int column, char matrixName[]);
+float **
+createMatrix(int row, int column, char matrixName[]);
 
 int deleteMatrix(char matrixName[]);
 

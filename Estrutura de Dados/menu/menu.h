@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include "../matrix/matrix.h"
 
 #define exit = 0;
 #define create = 1;
