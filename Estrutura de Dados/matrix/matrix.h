@@ -19,7 +19,7 @@ typedef struct Matrix
 {
     char name[20];
     float **value;
-    int row, column; //dimensão da matriz
+    int row, column;
 }Matrix;
 
 typedef struct MatrixList
@@ -39,7 +39,8 @@ void printDiagonal(char matrixName[]);
 
 void insertElement(char name[], float **value, int row, int column);
 void removeElement(void *header, char name[]);
-void searchElement();
+Matrix searchElement();
 void listDispose();
+void printAll();
 
 #endif

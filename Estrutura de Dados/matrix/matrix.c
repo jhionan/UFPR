@@ -7,7 +7,7 @@ void createMatrix()
     char name[20];
     int row = 0;
     int column = 0;
-    float **matrixValue;
+    float **matrixValue = NULL;
 
     printf("\nDigite a quantidade de linhas\n");
     scanf("%d", &row);
@@ -20,7 +20,7 @@ void createMatrix()
     flushScanf();
     printf("row %d, %d, %s\n", row, column, name);
 
-    if (row > 0 && column > 0 && strncmp(name,"\n",strlen(name)))
+    if (row > 0 && column > 0 && strncmp(name, "\n", strlen(name)))
     {
         matrixValue = (float **)malloc(row * sizeof(float *));
         for (int r = 0; r < row; r++)
@@ -62,14 +62,17 @@ void fillMatrix(float **matrix, int row, int column) {}
 
 void printMatrix(Matrix matrix)
 {
-    for (int r = 0; r < matrix.row; r++)
+    if (matrix.row != NULL)
     {
-
-        for (int c = 0; c < matrix.column; c++)
+        printf("\nMatriz %s \n", matrix.name);
+        for (int r = 0; r < matrix.row; r++)
         {
-            printf(" %.2f ", matrix.value[r][c]);
+            for (int c = 0; c < matrix.column; c++)
+            {
+                printf(" %.2f ", matrix.value[r][c]);
+            }
+            printf("\n");
         }
-        printf("\n");
     }
 }
 
@@ -77,6 +80,7 @@ void printDiagonal(char matrixName[]) {}
 
 void insertElement(char name[], float **value, int row, int column)
 {
+
     if (!head)
     {
 
@@ -86,26 +90,54 @@ void insertElement(char name[], float **value, int row, int column)
         head->matrix.row = row;
         head->matrix.column = column;
         head->next = NULL;
+        printf("Matriz %s adicionada \n", head->matrix.name);
+        printMatrix(head->matrix);
     }
     else
     {
 
         MatrixList *interator = head;
 
-        while (interator->next!=NULL)
+        while (interator->next != NULL)
         {
-            printf("while \n");
-            printMatrix(interator->matrix);
+
             interator = interator->next;
         }
-        printf("saiu while \n");
+
         interator->next = (MatrixList *)malloc(sizeof(MatrixList));
         strcpy(interator->matrix.name, name);
         interator->next->matrix.value = value;
         interator->next->matrix.row = row;
         interator->next->matrix.column = column;
         interator->next->next = NULL;
+        printf("Matriz %s adicionada \n", interator->matrix.name);
+        printMatrix(interator->next->matrix);
+    }
+}
 
-        printf("interactor last %d \n", interator->matrix.column);
+Matrix searchElement()
+{
+    char name[20];
+    printf("Digite o nome da matrix \n");
+    flushScanf();
+    scanf("%20[^\n]", name);
+    flushScanf();
+    MatrixList *aux = head;
+    while (aux)
+    {
+        if (strcmp(name, aux->matrix.name) == 0)
+        {
+            return aux->matrix;
+        }
+        aux = aux->next;
+    }
+    printf("Matriz não encontrada");
+}
+
+void printAll()
+{
+    MatrixList *interator = head;
+    while (interator)
+    {
     }
 }

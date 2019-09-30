@@ -27,8 +27,28 @@ void menu()
             createMatrix();
             break;
         case DELETE:
-            printf("delete\n\n");
+
+            break;
+        case TRANSPOSE:
+
+            break;
+        case SUM:
+
+            break;
+        case SUBSTRACTION:
+
+            break;
+        case MULTIPLICATION:
+
+            break;
+        case PRINT_DIAGONAL:
+
+            break;
+        case PRINT_MATRIX:
+            printMatrix(searchElement());
             break;
         }
-    } while (selection != 0);
+    }
+
+    while (selection != 0);
 }
