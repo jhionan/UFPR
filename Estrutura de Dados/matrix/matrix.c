@@ -54,15 +54,47 @@ void createMatrix()
 void deleteMatrix(char matrixName[]) {}
 
 void transpose(char matrixName[], char resultMatrixName[]) {}
-void sum(char firstMatrix[], char secondMatrix[], char resultMatrixName[], int operation) {}
+void sum(int operation)
+{
+
+    Matrix matrixA;
+    Matrix matrixB;
+    Matrix MatrixResponse;
+    char resultName[20];
+    float **resultValue;
+
+    printf("Primeira matriz - ");
+    matrixA = searchElement();
+    printf("Segunda matriz - ");
+    matrixB = searchElement();
+
+    printf("Digite o nome da matrix resposta \n");
+    flushScanf();
+    scanf("%20[^\n]", resultName);
+    flushScanf();
+    printf("AB AB %d - %d, %d - %d\n",matrixA.row,matrixB.row, matrixA.column, matrixB.column );
+    if (matrixA.row != matrixB.row || matrixA.column != matrixB.column)
+    {
+        printf("Operação inválida para matrizes de tamanho diferente\n");
+    }
+    else
+    {
+        resultValue = alocateResponseValues(matrixA.row, matrixA.column);
+
+        for (int r = 0; r < matrixA.row; r++)
+            for (int c = 0; c < matrixA.column; c++)
+            {
+                resultValue[r][c] = matrixA.value[r][c] + (matrixB.value[r][c] * operation);
+            }
+        insertElement(resultName, resultValue, matrixA.row, matrixA.column);
+    }
+}
 
 void multiplication(char firstMatrix[], char secondMatrix[], char resultMatrix[]) {}
 
-void fillMatrix(float **matrix, int row, int column) {}
-
 void printMatrix(Matrix matrix)
 {
-    if (matrix.row != NULL)
+    if (matrix.row != 0)
     {
         printf("\nMatriz %s \n", matrix.name);
         for (int r = 0; r < matrix.row; r++)
@@ -76,14 +108,29 @@ void printMatrix(Matrix matrix)
     }
 }
 
-void printDiagonal(char matrixName[]) {}
+void printDiagonal(Matrix matrix)
+{
+    if (matrix.row != 0)
+    {
+        printf("\nMatriz %s \n", matrix.name);
+        for (int r = 0; r < matrix.row; r++)
+        {
+            for (int c = 0; c < matrix.column; c++)
+            {
+                if (r == c)
+                    printf(" %.2f ", matrix.value[r][c]);
+                else
+                    printf(" - ");
+            }
+            printf("\n");
+        }
+    }
+}
 
 void insertElement(char name[], float **value, int row, int column)
 {
-
     if (!head)
     {
-
         head = (MatrixList *)malloc(sizeof(MatrixList));
         strcpy(head->matrix.name, name);
         head->matrix.value = value;
@@ -105,7 +152,7 @@ void insertElement(char name[], float **value, int row, int column)
         }
 
         interator->next = (MatrixList *)malloc(sizeof(MatrixList));
-        strcpy(interator->matrix.name, name);
+        strcpy(interator->next->matrix.name, name);
         interator->next->matrix.value = value;
         interator->next->matrix.row = row;
         interator->next->matrix.column = column;
@@ -121,7 +168,7 @@ Matrix searchElement()
     printf("Digite o nome da matrix \n");
     flushScanf();
     scanf("%20[^\n]", name);
-    flushScanf();
+    //flushScanf();
     MatrixList *aux = head;
     while (aux)
     {
@@ -136,8 +183,30 @@ Matrix searchElement()
 
 void printAll()
 {
-    MatrixList *interator = head;
-    while (interator)
+    MatrixList *temp = head;
+    while (temp)
     {
+        printMatrix(temp->matrix);
+        temp = temp->next;
     }
+}
+
+float **alocateResponseValues(int row, int column)
+{
+    float **matrixValue;
+    matrixValue = (float **)malloc(row * sizeof(float *));
+    for (int r = 0; r < row; r++)
+    {
+        matrixValue[r] = (float *)malloc(column * sizeof(float));
+        if (!matrixValue[r])
+        {
+            printf("deu ruim");
+            for (int i = 0; i < row; i++)
+            {
+                free(matrixValue[i]);
+                exit(1);
+            }
+        }
+    }
+    return matrixValue;
 }

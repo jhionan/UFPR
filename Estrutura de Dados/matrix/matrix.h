@@ -2,8 +2,8 @@
 
 #ifndef HEADER_MATRIX
 #define HEADER_MATRIX
-#define operationSum = 0;
-#define operationSubstration = 1;
+#define operationSum = 1;
+#define operationSubstration = -1;
 
 #include <stdio.h>
 #include <string.h>
@@ -20,22 +20,22 @@ typedef struct Matrix
     char name[20];
     float **value;
     int row, column;
-}Matrix;
+} Matrix;
 
 typedef struct MatrixList
 {
     Matrix matrix;
     struct MatrixList *next;
-}MatrixList;
+} MatrixList;
 
 void createMatrix();
 void deleteMatrix(char matrixName[]);
 void transpose(char matrixName[], char resultMatrixName[]);
-void sum(char firstMatrix[], char secondMatrix[], char resultMatrixName[], int operation);
+void sum(int operation);
 void multiplication(char firstMatrix[], char secondMatrix[], char resultMatrix[]);
-void fillMatrix(float **matrix, int row, int column);
 void printMatrix(Matrix matrix);
-void printDiagonal(char matrixName[]);
+void printDiagonal(Matrix matrix);
+float **alocateResponseValues(int row, int column);
 
 void insertElement(char name[], float **value, int row, int column);
 void removeElement(void *header, char name[]);

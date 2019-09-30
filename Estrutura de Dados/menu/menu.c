@@ -33,19 +33,22 @@ void menu()
 
             break;
         case SUM:
-
+            sum(1);
             break;
         case SUBSTRACTION:
-
+            sum(-1);
             break;
         case MULTIPLICATION:
 
             break;
         case PRINT_DIAGONAL:
-
+            printDiagonal(searchElement());
             break;
         case PRINT_MATRIX:
             printMatrix(searchElement());
+            break;
+        case 9:
+            printAll();
             break;
         }
     }
