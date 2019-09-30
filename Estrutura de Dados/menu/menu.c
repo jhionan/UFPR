@@ -17,6 +17,7 @@ void menu()
         printf("Digite 6 para Multiplicar duas Matrizes.\n");
         printf("Digite 7 para Imprimir a diagonal principal.\n");
         printf("Digite 8 para Imprimir uma Matriz.\n");
+        printf("Digite 9 para Imprimir toda lista.\n");
         printf("***********************************************************\n");
 
         scanf("%d", &selection);
@@ -30,7 +31,7 @@ void menu()
 
             break;
         case TRANSPOSE:
-
+            transpose();
             break;
         case SUM:
             sum(1);

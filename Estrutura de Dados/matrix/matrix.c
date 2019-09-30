@@ -53,7 +53,21 @@ void createMatrix()
 
 void deleteMatrix(char matrixName[]) {}
 
-void transpose(char matrixName[], char resultMatrixName[]) {}
+void transpose() {
+    Matrix matrixA = searchElement();
+    float **transpose = alocateResponseValues(matrixA.column, matrixA.row);
+    char name[20];
+    printf("Digite o nome da matrix resposta \n");
+    flushScanf();
+    scanf("%20[^\n]", name);
+    flushScanf();
+
+    for (int r = 0; r < matrixA.row; r++)
+        for (int c = 0; c < matrixA.column; c++) {
+            transpose[c][r] = matrixA.value[r][c];
+        }
+    insertElement(name, transpose, matrixA.column, matrixA.row);
+}
 void sum(int operation)
 {
 
@@ -72,7 +86,6 @@ void sum(int operation)
     flushScanf();
     scanf("%20[^\n]", resultName);
     flushScanf();
-    printf("AB AB %d - %d, %d - %d\n",matrixA.row,matrixB.row, matrixA.column, matrixB.column );
     if (matrixA.row != matrixB.row || matrixA.column != matrixB.column)
     {
         printf("Operação inválida para matrizes de tamanho diferente\n");
