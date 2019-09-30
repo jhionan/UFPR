@@ -32,7 +32,7 @@ void createMatrix();
 void deleteMatrix(char matrixName[]);
 void transpose();
 void sum(int operation);
-void multiplication(char firstMatrix[], char secondMatrix[], char resultMatrix[]);
+void multiplication();
 void printMatrix(Matrix matrix);
 void printDiagonal(Matrix matrix);
 float **alocateResponseValues(int row, int column);

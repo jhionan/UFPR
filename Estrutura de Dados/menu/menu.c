@@ -40,7 +40,7 @@ void menu()
             sum(-1);
             break;
         case MULTIPLICATION:
-
+            multiplication();
             break;
         case PRINT_DIAGONAL:
             printDiagonal(searchElement());
