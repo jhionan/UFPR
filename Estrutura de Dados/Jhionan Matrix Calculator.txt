@@ -1,5 +1,55 @@
+matrix.h
+
+
+
+#ifndef HEADER_MATRIX
+#define HEADER_MATRIX
+#define operationSum = 1;
+#define operationSubstration = -1;
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+void flushScanf()
+{
+    scanf("%*[^\n]");
+    scanf("%*c");
+}
+
+typedef struct Matrix
+{
+    char name[20];
+    float **value;
+    int row, column;
+} Matrix;
+
+typedef struct MatrixList
+{
+    Matrix matrix;
+    struct MatrixList *next;
+} MatrixList;
+
+void createMatrix();
+void deleteMatrix(char matrixName[]);
+void transpose();
+void sum(int operation);
+void multiplication();
+void printMatrix(Matrix matrix);
+void printDiagonal(Matrix matrix);
+float **alocateResponseValues(int row, int column);
+
+void insertElement(char name[], float **value, int row, int column);
+void removeElement();
+Matrix searchElement();
+void listDispose();
+void printAll();
+
+#endif
+========================================
+
 matrix.c
-=====================================================================================================================
+
 #include "matrix.h"
 
 struct MatrixList *head;
@@ -252,41 +302,56 @@ void multiplication()
         resultValue = alocateResponseValues(matrixA.row, matrixB.column);
         float multiplication;
 
-            for (int j = 0; j < matrixB.column; j++)
-                for (int r = 0; r < matrixA.row; r++)
+        for (int j = 0; j < matrixB.column; j++)
+            for (int r = 0; r < matrixA.row; r++)
+            {
+                multiplication = 0;
+                for (int c = 0; c < matrixA.column; c++)
                 {
-                    multiplication = 0;
-                    for (int c = 0; c < matrixA.column; c++)
-                    {
-                        multiplication += matrixA.value[r][c] * (matrixB.value[c][r]);
-                    }
-                    resultValue[r][j] = multiplication;
+                    multiplication += matrixA.value[r][c] * (matrixB.value[c][r]);
                 }
+                resultValue[r][j] = multiplication;
+            }
         insertElement(resultName, resultValue, matrixA.row, matrixB.column);
     }
 }
-=====================================================================================================================
 
-matrix.h
-#ifndef HEADER_MENU
-#define HEADER_MENU
+void removeElement()
+{
+    char name[20];
+    printf("Digite o nome da matrix \n");
+    flushScanf();
+    scanf("%20[^\n]", name);
+    //flushScanf();
+    MatrixList *aux = head;
+    if (strcmp(name, aux->matrix.name) == 0)
+    {
+        head = head->next;
+        printf("matriz %s excluida", aux->matrix.name);
+        free(aux);
+        return;
+    }
+    else
+    {
+        while (aux)
+        {
+            if (strcmp(name, aux->next->matrix.name) == 0)
+            {
+                MatrixList *exclude;
+                exclude = aux->next;
+                aux->next = aux->next->next;
+                printf("matriz %s excluida", exclude->matrix.name);
+                free(exclude);
+                return;
+            }
+            aux = aux->next;
+        }
+    }
+    printf("Matriz não encontrada");
+}
 
-#include "../matrix/matrix.c"
+======================================================================
 
-const int EXIT = 0;
-const int CREATE = 1;
-const int DELETE = 2;
-const int TRANSPOSE = 3;
-const int SUM = 4;
-const int SUBSTRACTION = 5;
-const int MULTIPLICATION = 6;
-const int PRINT_DIAGONAL = 7;
-const int PRINT_MATRIX = 8;
-
-void menu();
-
-#endif
-=====================================================================================================================
 menu.h
 #ifndef HEADER_MENU
 #define HEADER_MENU
@@ -306,8 +371,10 @@ const int PRINT_MATRIX = 8;
 void menu();
 
 #endif
-=====================================================================================================================
-menu.c
+
+==================================
+
+menu.c 
 #include "menu.h"
 
 void menu()
@@ -338,7 +405,7 @@ void menu()
             createMatrix();
             break;
         case DELETE:
-
+            removeElement();
             break;
         case TRANSPOSE:
             transpose();
@@ -366,8 +433,11 @@ void menu()
 
     while (selection != 0);
 }
-=====================================================================================================================
+=============================================
+
 main.c
+
+
 #include "menu/menu.c"
 
 int main()
@@ -375,4 +445,5 @@ int main()
     menu();
     return 0;
 }
-=====================================================================================================================
+
+

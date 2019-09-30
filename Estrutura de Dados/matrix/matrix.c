@@ -250,16 +250,50 @@ void multiplication()
         resultValue = alocateResponseValues(matrixA.row, matrixB.column);
         float multiplication;
 
-            for (int j = 0; j < matrixB.column; j++)
-                for (int r = 0; r < matrixA.row; r++)
+        for (int j = 0; j < matrixB.column; j++)
+            for (int r = 0; r < matrixA.row; r++)
+            {
+                multiplication = 0;
+                for (int c = 0; c < matrixA.column; c++)
                 {
-                    multiplication = 0;
-                    for (int c = 0; c < matrixA.column; c++)
-                    {
-                        multiplication += matrixA.value[r][c] * (matrixB.value[c][r]);
-                    }
-                    resultValue[r][j] = multiplication;
+                    multiplication += matrixA.value[r][c] * (matrixB.value[c][r]);
                 }
+                resultValue[r][j] = multiplication;
+            }
         insertElement(resultName, resultValue, matrixA.row, matrixB.column);
     }
+}
+
+void removeElement()
+{
+    char name[20];
+    printf("Digite o nome da matrix \n");
+    flushScanf();
+    scanf("%20[^\n]", name);
+    //flushScanf();
+    MatrixList *aux = head;
+    if (strcmp(name, aux->matrix.name) == 0)
+    {
+        head = head->next;
+        printf("matriz %s excluida", aux->matrix.name);
+        free(aux);
+        return;
+    }
+    else
+    {
+        while (aux)
+        {
+            if (strcmp(name, aux->next->matrix.name) == 0)
+            {
+                MatrixList *exclude;
+                exclude = aux->next;
+                aux->next = aux->next->next;
+                printf("matriz %s excluida", exclude->matrix.name);
+                free(exclude);
+                return;
+            }
+            aux = aux->next;
+        }
+    }
+    printf("Matriz não encontrada");
 }

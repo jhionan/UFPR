@@ -28,7 +28,7 @@ void menu()
             createMatrix();
             break;
         case DELETE:
-
+            removeElement();
             break;
         case TRANSPOSE:
             transpose();

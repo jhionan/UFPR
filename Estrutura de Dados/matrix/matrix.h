@@ -38,7 +38,7 @@ void printDiagonal(Matrix matrix);
 float **alocateResponseValues(int row, int column);
 
 void insertElement(char name[], float **value, int row, int column);
-void removeElement(void *header, char name[]);
+void removeElement();
 Matrix searchElement();
 void listDispose();
 void printAll();
