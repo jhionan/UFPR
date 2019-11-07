@@ -241,7 +241,7 @@ void multiplication()
     flushScanf();
     scanf("%20[^\n]", resultName);
     flushScanf();
-    if (matrixA.row != matrixB.column || matrixA.column != matrixB.row)
+    if (matrixA.column != matrixB.row)
     {
         printf("Operação inválida para matrizes com tamanhos não compatíveis\n");
     }
@@ -251,7 +251,7 @@ void multiplication()
         float multiplication;
 
         for (int j = 0; j < matrixB.column; j++)
-            for (int r = 0; r < matrixA.row; r++)
+            for (int r = 0; r < matrixB.row; r++)
             {
                 multiplication = 0;
                 for (int c = 0; c < matrixA.column; c++)
