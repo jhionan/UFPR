@@ -347,3 +347,8 @@ DerivedData/
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # End of https://www.gitignore.io/api/c,c++,linux,xcode,macos,kotlin,android,windows,flutter,visualstudiocode
+Estrutura de Dados/pilha/--debug
+Estrutura de Dados/pilha/main
+Estrutura de Dados/pilha/.vscode/c_cpp_properties.json
+Estrutura de Dados/pilha/.vscode/tasks.json
+.gitignore
