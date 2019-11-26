@@ -4,7 +4,7 @@
 
 struct Paciente
 {
-    char nome[10];
+    char nome[30];
     char telefone[11];
     int prioridade;
     struct Paciente *proximo;
