@@ -2,12 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define muito_urgent = 5
-#define urgente = 4
-#define medio = 3
-#define pouco_urgente = 2
-#define sem_urgencia = 1
-
 struct Paciente
 {
     char nome[10];
@@ -59,7 +53,8 @@ void imprime(struct Paciente *paciente, int imprimeTodos)
         index++;
     };
 
-    if(cabeca == NULL) {
+    if (cabeca == NULL)
+    {
         printf("LISTA VAZIA!!!\n");
     }
 }
@@ -86,16 +81,20 @@ void adicionaPacienteOrdenadamente(struct Paciente *novoPaciente)
             {
                 while (interador->proximo != NULL)
                 {
-                    if (interador->proximo->prioridade >= interador->prioridade)
+                    if (interador->proximo->prioridade >= novoPaciente->prioridade)
                     {
+                        printf("§§§§§§§§§§§§§§ LAÇO   PROXIMO\n");
+                        imprime(interador->proximo, 0);
+                        imprime(interador, 0);
                         break;
                     }
                     interador = interador->proximo;
                 }
                 proximo = interador->proximo;
                 novoPaciente->proximo = proximo;
-                printf("§§§§§§§§§§§§§§§§§§§§§§ selecionado \n");
-                imprime(interador, 0);
+
+                printf("±±±±±±±±±±±±±±±±±±±±±±±±±±±±§\n");
+                imprime(novoPaciente->proximo, 0);
                 interador->proximo = novoPaciente;
             }
         }
@@ -121,19 +120,57 @@ struct Paciente *cadastrarPaciente()
     return novoPaciente;
 }
 
-void buscarPaciente() {}
+void buscarPaciente()
+{
+    int tipoBusca = 0;
+    printf("================================\n");
+    printf("Busca de Paciente\n");
+    printf("================================\n");
+    printf("1 - Buscar por nome:\n");
+    printf("2 - Buscar por telefone:\n");
+    scanf("%d", &tipoBusca);
+    char buscar[30];
+
+    if (tipoBusca == 1)
+    {
+        printf("Digite o nome para buscar:\n");
+    }
+    if (tipoBusca == 2)
+    {
+        printf("Digite o telefone para buscar:\n");
+    }
+    scanf("%s", buscar);
+    struct Paciente *interador = cabeca;
+    while (interador != NULL)
+    {
+        if (strcmp(buscar, interador->nome) == 0)
+            break;
+        interador = interador->proximo;
+    }
+    if (interador != NULL && strcmp(buscar, interador->nome) == 0)
+    {
+        imprime(interador, 0);
+    }
+    else
+    {
+        printf("Paciente não encontrado\n");
+    }
+}
 void proximoPacienteAOperar()
 {
     struct Paciente *interador = cabeca;
-    if (interador != NULL && interador->proximo != NULL && interador->proximo->proximo!=NULL)
-    while (interador->proximo->proximo != NULL)
-    {
-        interador = interador->proximo;
-    }
+    if (interador != NULL && interador->proximo != NULL && interador->proximo->proximo != NULL)
+        while (interador->proximo->proximo != NULL)
+        {
+            interador = interador->proximo;
+        }
     printf("PROXIMO PARA OPERAR!! \n");
-    if(interador!= cabeca)
-    {imprime(interador->proximo, 0);}
-    else {
+    if (interador != cabeca)
+    {
+        imprime(interador->proximo, 0);
+    }
+    else
+    {
         imprime(interador, 0);
     }
 
