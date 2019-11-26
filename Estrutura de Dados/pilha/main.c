@@ -21,7 +21,7 @@ int tamanhoFila(int imprime)
         interador = interador->proximo;
     }
     if (imprime)
-        printf("TAMANHO DA FILA: %d", tamanho);
+        printf("TAMANHO DA FILA: %d\n", tamanho);
     return tamanho;
 }
 
@@ -83,18 +83,12 @@ void adicionaPacienteOrdenadamente(struct Paciente *novoPaciente)
                 {
                     if (interador->proximo->prioridade >= novoPaciente->prioridade)
                     {
-                        printf("§§§§§§§§§§§§§§ LAÇO   PROXIMO\n");
-                        imprime(interador->proximo, 0);
-                        imprime(interador, 0);
                         break;
                     }
                     interador = interador->proximo;
                 }
                 proximo = interador->proximo;
                 novoPaciente->proximo = proximo;
-
-                printf("±±±±±±±±±±±±±±±±±±±±±±±±±±±±§\n");
-                imprime(novoPaciente->proximo, 0);
                 interador->proximo = novoPaciente;
             }
         }
@@ -153,30 +147,50 @@ void buscarPaciente()
     }
     else
     {
-        printf("Paciente não encontrado\n");
+        printf("Paciente não encontrado!!!!!!!\n");
     }
 }
+void salvarNoArquivo(struct Paciente *atual)
+{
+    if (atual != NULL)
+    {
+        FILE *file = fopen("pacientes-operados.txt", "a");
+        if (file == NULL)
+        {
+            printf("erro ao abrir aquivo");
+        }
+        fprintf(file, "==============================================\n");
+        fprintf(file, "Paciente: %s\n", atual->nome);
+        fprintf(file, "Telefone: %s\n", atual->telefone);
+        fprintf(file, "Prioridade: %d\n", atual->prioridade);
+
+        fclose(file);
+    }
+}
+
 void proximoPacienteAOperar()
 {
     struct Paciente *interador = cabeca;
-    if (interador != NULL && interador->proximo != NULL && interador->proximo->proximo != NULL)
-        while (interador->proximo->proximo != NULL)
+    struct Paciente *interadorAnterior = cabeca;
+    if (interador != NULL && interador->proximo != NULL)
+        while (interador->proximo != NULL)
         {
+            interadorAnterior = interador;
             interador = interador->proximo;
         }
     printf("PROXIMO PARA OPERAR!! \n");
     if (interador != cabeca)
     {
-        imprime(interador->proximo, 0);
+        salvarNoArquivo(interadorAnterior->proximo);
+        imprime(interadorAnterior->proximo, 0);
+        interadorAnterior->proximo = NULL;
     }
     else
     {
+        salvarNoArquivo(interador);
         imprime(interador, 0);
-    }
-
-    if (interador == cabeca && interador->proximo == NULL)
         cabeca = NULL;
-    interador->proximo = NULL;
+    }
 }
 
 int menu()
